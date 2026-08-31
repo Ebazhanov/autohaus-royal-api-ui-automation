@@ -20,7 +20,11 @@ test.describe('Vehicle Data Consistency', () => {
       expect(apiData.Id).toBe(VEHICLE_ID);
       await expect(page.locator('body')).toContainText(apiData.Manufacturer);
 
-      const formattedPriceFromApi = apiData.Price.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+      const formattedPriceFromApi =
+        apiData.Price.toLocaleString('de-DE', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }) + ' €';
       await expect(page.locator('body')).toContainText(formattedPriceFromApi);
     });
   });
