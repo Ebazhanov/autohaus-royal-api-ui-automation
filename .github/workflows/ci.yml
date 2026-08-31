@@ -8,11 +8,9 @@ on:
 
 jobs:
   test:
-    # Required runner specification
     runs-on: ubuntu-latest
-    # Use Playwright official Docker image which includes browsers preinstalled
     container:
-      image: mcr.microsoft.com/playwright:v1.50.0-focal
+      image: mcr.microsoft.com/playwright:latest
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
