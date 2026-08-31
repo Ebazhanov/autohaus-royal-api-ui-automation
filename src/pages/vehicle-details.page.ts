@@ -4,7 +4,6 @@ export class VehicleDetailsPage {
   readonly acceptCookiesButton: Locator;
 
   constructor(private readonly page: Page) {
-    // Target exact button from DOM tree inspect: <button class="cb-button button">
     this.acceptCookiesButton = page.locator('#cb-dialog button.cb-button', {
       hasText: 'Alle Akzeptieren',
     });

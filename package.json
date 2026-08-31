@@ -1,32 +1,52 @@
 {
   "name": "autohaus-royal-api-ui-automation",
   "version": "1.0.0",
-  "description": "A hybrid test suite combining **Playwright (TypeScript)** UI automation with direct API validation for the Autohaus Royal vehicle portal.",
+  "description": "Hybrid Playwright (TypeScript) UI + API test suite for Autohaus Royal.",
   "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
+    "prepare": "npx playwright install --with-deps",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
-    "test:report": "playwright show-report",
-    "format": "prettier --write \"src/**/*.{ts,js,json}\" \"tests/**/*.{ts,js,json}\" \"*.{ts,js,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,js,json}\" \"tests/**/*.{ts,js,json}\" \"*.{ts,js,json}\""
+    "test:api": "playwright test tests/api --project=chromium",
+    "test:e2e": "playwright test tests/e2e --project=chromium",
+    "test:ci": "playwright test --reporter=list --workers=1",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "ci": "npm run prepare && npm run test:ci"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ebazhanov/autohaus-royal-api-ui-automation.git"
   },
-  "keywords": [],
+  "keywords": [
+    "playwright",
+    "testing",
+    "automation",
+    "typescript"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/issues"
   },
   "homepage": "https://github.com/Ebazhanov/autohaus-royal-api-ui-automation#readme",
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
-    "@types/node": "^26.4.0",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.9.6",
-    "typescript": "^7.0.2"
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-playwright": "^2.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "~5.7.3",
+    "typescript-eslint": "^8.20.0"
   }
 }

@@ -1,4 +1,4 @@
-# Autohaus Royal Hybrid Test Automation Framework (UI + API)
+## Autohaus Royal Hybrid Test Automation Framework (UI + API)
 
 A hybrid test suite combining **Playwright (TypeScript)** UI automation with direct API validation for the Autohaus Royal vehicle portal.
 
