@@ -6,7 +6,7 @@ A hybrid test suite combining **Playwright (TypeScript)** UI automation with dir
 
 ## 🎯 Test Scenarios
 - [x] **Vehicle Data Consistency**
-  - Validates that vehicle attributes (ID, manufacturer, formatted price) match between live backend API responses (`/vehicle.php`) and rendered UI elements.
+  - Validates that vehicle attributes (ID, manufacturer, formatted price) match between live backend API responses and rendered UI elements.
 - [ ] **Inquiry Form Submission**
   - Submits the vehicle inquiry form via UI and asserts outgoing network payload correctness.
 - [ ] **State Mocks & Edge Cases**
