@@ -5,15 +5,12 @@ A hybrid test suite combining **Playwright (TypeScript)** UI automation with dir
 ---
 
 ## 🎯 Test Scenarios
-
-- [ ] **Auth Injection (API + UI)**
-    - Authenticates via REST API and seeds browser state for instant test execution.
-- [ ] **Vehicle Data Consistency (API vs. UI)**
-    - Validates vehicle details (e.g., `Wagennummer: 425-685`) match between backend responses and the DOM.
-- [ ] **Inquiry Form Submission (End-to-End)**
-    - Submits the inquiry form via UI and asserts network payload correctness.
-- [ ] **State Mocks & Edge Cases (Interception)**
-    - Mocks dynamic pricing and vehicle availability statuses.
+- [x] **Vehicle Data Consistency**
+  - Validates that vehicle attributes (ID, manufacturer, formatted price) match between live backend API responses (`/vehicle.php`) and rendered UI elements.
+- [ ] **Inquiry Form Submission**
+  - Submits the vehicle inquiry form via UI and asserts outgoing network payload correctness.
+- [ ] **State Mocks & Edge Cases**
+  - Mocks dynamic pricing and availability statuses via network route overrides.
 ---
 
 ## 🛠️ Prerequisites & Setup

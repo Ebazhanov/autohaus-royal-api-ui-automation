@@ -1,0 +1,32 @@
+{
+  "name": "autohaus-royal-api-ui-automation",
+  "version": "1.0.0",
+  "description": "A hybrid test suite combining **Playwright (TypeScript)** UI automation with direct API validation for the Autohaus Royal vehicle portal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "format": "prettier --write \"src/**/*.{ts,js,json}\" \"tests/**/*.{ts,js,json}\" \"*.{ts,js,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json}\" \"tests/**/*.{ts,js,json}\" \"*.{ts,js,json}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ebazhanov/autohaus-royal-api-ui-automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/issues"
+  },
+  "homepage": "https://github.com/Ebazhanov/autohaus-royal-api-ui-automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.6",
+    "typescript": "^7.0.2"
+  }
+}
