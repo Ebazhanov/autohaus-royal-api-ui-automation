@@ -22,7 +22,9 @@ jobs:
           sudo apt-get update && sudo apt-get install -y k6 jq
 
       - name: Run k6 API Load Tests
-        run: k6 run tests/performance/api/vehicle-k6-load.js
+        run: |
+          mkdir -p performance-report
+          k6 run tests/performance/api/vehicle-k6-load.js
 
       - name: Upload k6 Performance Report Artifact
         if: always()
