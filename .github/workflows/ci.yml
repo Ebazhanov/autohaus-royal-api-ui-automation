@@ -14,12 +14,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:latest
+      image: mcr.microsoft.com/playwright:v1.48.0-noble # Pin explicit version for deterministic CI builds
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache npm
+      - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
           path: |
@@ -29,13 +29,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-npm-
 
-      - name: Install dependencies
+      - name: Install Node dependencies
         run: npm ci
 
-      - name: Run Playwright tests (chromium only)
-        # Capture console output to parse numeric counters later
+      - name: Install k6
+        run: |
+          gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | tee /etc/apt/sources.list.d/k6.list
+          apt-get update && apt-get install -y k6
+
+      - name: Run E2E & UI Performance Tests
         run: |
           npx playwright test --project=chromium --reporter=dot --reporter=github --reporter=html 2>&1 | tee playwright-output.txt
+
+      - name: Run k6 API Load Tests
+        run: |
+          k6 run tests/performance/api/vehicle-k6-load.js
 
       - name: Upload Playwright HTML report
         if: always()
@@ -43,6 +52,7 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report
+          retention-days: 14
 
       - name: Upload raw test-results
         if: always()
@@ -50,6 +60,7 @@ jobs:
         with:
           name: test-results
           path: test-results
+          retention-days: 14
 
       - name: Post numeric summary
         if: always()
@@ -58,16 +69,14 @@ jobs:
           PASSED=$(grep -Eo '[0-9]+ passed' $OUT | grep -Eo '[0-9]+' || echo 0)
           FAILED=$(grep -Eo '[0-9]+ failed' $OUT | grep -Eo '[0-9]+' || echo 0)
           SKIPPED=$(grep -Eo '[0-9]+ skipped' $OUT | grep -Eo '[0-9]+' || echo 0)
-          echo "### Playwright results" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Passed: $PASSED" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Failed: $FAILED" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Skipped: $SKIPPED" >> $GITHUB_STEP_SUMMARY || true
-          echo "" 
-          echo "Passed: $PASSED Failed: $FAILED Skipped: $SKIPPED"
-
-      - name: Post job summary link
-        if: always()
-        run: |
-          echo "### Playwright Report" >> $GITHUB_STEP_SUMMARY || true
-          echo "- HTML report artifact: playwright-report" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Raw test-results artifact: test-results" >> $GITHUB_STEP_SUMMARY || true
+          
+          {
+            echo "### 🎭 Playwright Results"
+            echo "- **Passed:** $PASSED"
+            echo "- **Failed:** $FAILED"
+            echo "- **Skipped:** $SKIPPED"
+            echo ""
+            echo "### 📊 Artifacts"
+            echo "- HTML Report: \`playwright-report\`"
+            echo "- Raw Results: \`test-results\`"
+          } >> $GITHUB_STEP_SUMMARY
