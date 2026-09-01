@@ -8,8 +8,6 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html', { open: 'never' }], ['list']],
 
-  // REMOVED: globalSetup: './playwright.global-setup.ts',
-
   use: {
     baseURL: process.env.BASE_URL || 'https://www.autohaus-royal.de',
     trace: 'retain-on-failure',
