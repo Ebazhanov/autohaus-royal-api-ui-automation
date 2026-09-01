@@ -1,8 +1,9 @@
 // @ts-check
+// @ts-ignore
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 /**
- * Generates k6 HTML and JSON summaries inside the performance-report folder.
+ * Generates k6 HTML and JSON summaries inside the performance-report directory.
  * @param {object} data
  * @returns {Record<string, string>}
  */

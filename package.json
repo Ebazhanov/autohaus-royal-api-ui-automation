@@ -15,7 +15,7 @@
     "test:api": "playwright test tests/api --project=chromium",
     "test:e2e": "playwright test tests/e2e --project=chromium",
     "test:perf:ui": "playwright test tests/performance/ui --project=chromium",
-    "test:perf:api": "k6 run tests/performance/api/vehicle-k6-load.js",
+    "test:perf:api": "mkdir -p performance-report && k6 run tests/performance/api/vehicle-k6-load.js",
     "test:ci": "playwright test --reporter=list --workers=1",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
