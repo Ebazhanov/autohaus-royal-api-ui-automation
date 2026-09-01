@@ -2,6 +2,9 @@
 
 A hybrid test suite combining **Playwright (TypeScript)** E2E/API automation with **k6** load testing for the Autohaus Royal vehicle portal.
 
+[![CI (Functional)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/ci.yml)
+[![Performance & Load Tests](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/performance.yml/badge.svg)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/performance.yml)
+
 ---
 
 ## 🎯 Test Scenarios
@@ -31,3 +34,14 @@ npm install
 
 # 2. Install Playwright browser binaries
 npm run prepare
+```
+----
+
+## ⚡ Performance Metrics Summary
+
+| Metric | Target / SLA | Description |
+| :--- | :--- | :--- |
+| **p(95) Latency** | `< 1000 ms` | Ensures 95% of users receive responses in under 1 second |
+| **Avg Latency** | Baseline | Tracks overall average backend response time |
+| **Failure Rate** | `< 5%` | Verifies HTTP status error rate remains near 0% under load |
+| **Web Vitals** | Optimal | Measures page load, DOM Content Loaded, and FCP rendering times |
