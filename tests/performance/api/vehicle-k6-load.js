@@ -9,8 +9,8 @@ export const options = {
     { duration: '10s', target: 0 },
   ],
   thresholds: {
-    http_req_duration: ['p(95)<1000'], // 95% of requests under 1s
-    http_req_failed: ['rate<0.05'], // Failures below 5%
+    http_req_duration: ['p(95)<1000'], // 95% запросов быстрее 1000мс
+    http_req_failed: ['rate<0.05'], // Ошибок менее 5%
   },
 };
 
@@ -26,6 +26,7 @@ export default function () {
 
   check(response, {
     'status is 200': r => r.status === 200,
+    'response time < 1000ms': r => r.timings.duration < 1000,
   });
 
   sleep(1);
