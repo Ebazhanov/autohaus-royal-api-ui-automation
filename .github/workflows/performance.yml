@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   load-test:
@@ -16,19 +16,13 @@ jobs:
 
       - name: Install k6
         run: |
-          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          sudo mkdir -p /usr/share/keyrings
+          curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
           echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
-          sudo apt-get update && sudo apt-get install -y k6
+          sudo apt-get update && sudo apt-get install -y k6 jq
 
-      - name: Run k6 API Load Tests & Generate JSON Report
-        run: |
-          mkdir -p performance-report
-          k6 run --summary-export=performance-report/summary.json tests/performance/api/vehicle-k6-load.js
-
-      - name: Generate k6 HTML Report
-        if: always()
-        run: |
-          npx -y k6-html-reporter -i performance-report/summary.json -o performance-report/report.html
+      - name: Run k6 API Load Tests
+        run: k6 run tests/performance/api/vehicle-k6-load.js
 
       - name: Upload k6 Performance Report Artifact
         if: always()
@@ -38,7 +32,7 @@ jobs:
           path: performance-report
           retention-days: 14
 
-      - name: Post Performance Summary to GitHub Actions Step Summary
+      - name: Post Performance Summary to Step Summary
         if: always()
         run: |
           if [ -f performance-report/summary.json ]; then
@@ -56,6 +50,4 @@ jobs:
               echo ""
               echo "📊 Detailed HTML Report saved as artifact **k6-performance-report**"
             } >> $GITHUB_STEP_SUMMARY
-          else
-            echo "No performance summary generated." >> $GITHUB_STEP_SUMMARY
           fi
