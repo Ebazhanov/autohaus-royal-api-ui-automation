@@ -1,23 +1,23 @@
-import { test, expect } from '@fixtures/test.fixture';
+import { test, expect } from '@fixtures/test.fixture.ts';
+import { VehicleDetailsPage } from '@pages/vehicle-details.page.ts';
 
 test.describe('Vehicle Data Consistency', () => {
   const VEHICLE_ID = '002-451';
 
-  test('should match API details with UI elements', async ({
-    vehicleDetailsPage,
-    vehicleApi,
-    page,
-  }) => {
+  test('should match API details with UI elements', async ({ vehicleApiClient, page }) => {
+    const vehicleDetailsPage = new VehicleDetailsPage(page);
+
     await test.step('Navigate to vehicle details page', async () => {
       await vehicleDetailsPage.navigateTo(VEHICLE_ID);
       await vehicleDetailsPage.acceptCookiesIfPresent();
     });
 
-    // Call the live Vehicle API via the vehicleApi helper. Let errors bubble so test fails on real issues.
-    const apiData = await vehicleApi.getVehicleData(VEHICLE_ID);
+    const { status, data: apiData } = await vehicleApiClient.getVehicleById(VEHICLE_ID);
 
-    await test.step('Verify UI renders correct vehicle details', async () => {
+    await test.step('Verify UI renders correct vehicle details matching API payload', async () => {
+      expect(status).toBe(200);
       expect(apiData.Id).toBe(VEHICLE_ID);
+
       await expect(page.locator('body')).toContainText(apiData.Manufacturer);
 
       const formattedPriceFromApi =
@@ -25,6 +25,7 @@ test.describe('Vehicle Data Consistency', () => {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }) + ' €';
+
       await expect(page.locator('body')).toContainText(formattedPriceFromApi);
     });
   });

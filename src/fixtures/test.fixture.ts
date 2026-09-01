@@ -1,18 +1,14 @@
 import { test as base } from '@playwright/test';
-import { VehicleApiClient } from '../api/vehicle.api.js';
-import { VehicleDetailsPage } from '../pages/vehicle-details.page.js';
+import { VehicleApiClient } from '../api/vehicleClient';
 
-type TestFixtures = {
-  vehicleApi: VehicleApiClient;
-  vehicleDetailsPage: VehicleDetailsPage;
+type MyFixtures = {
+  vehicleApiClient: VehicleApiClient;
 };
 
-export const test = base.extend<TestFixtures>({
-  vehicleApi: async ({ page }, use) => {
-    await use(new VehicleApiClient(page));
-  },
-  vehicleDetailsPage: async ({ page }, use) => {
-    await use(new VehicleDetailsPage(page));
+export const test = base.extend<MyFixtures>({
+  vehicleApiClient: async ({ request }, use) => {
+    const client = new VehicleApiClient(request);
+    await use(client);
   },
 });
 
