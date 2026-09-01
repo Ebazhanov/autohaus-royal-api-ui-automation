@@ -1,0 +1,55 @@
+name: Performance & Load Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install k6
+        run: |
+          sudo mkdir -p /usr/share/keyrings
+          curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update && sudo apt-get install -y k6 jq
+
+      - name: Run k6 API Load Tests
+        run: |
+          mkdir -p performance-report
+          k6 run tests/performance/api/vehicle-k6-load.js
+
+      - name: Upload k6 Performance Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-performance-report
+          path: performance-report
+          retention-days: 14
+
+      - name: Post Performance Summary to Step Summary
+        if: always()
+        run: |
+          if [ -f performance-report/summary.json ]; then
+            REQ_COUNT=$(jq '.metrics.http_reqs.values.count' performance-report/summary.json || echo "N/A")
+            P95_LATENCY=$(jq '.metrics.http_req_duration.values["p(95)"]' performance-report/summary.json || echo "N/A")
+            AVG_LATENCY=$(jq '.metrics.http_req_duration.values.avg' performance-report/summary.json || echo "N/A")
+            FAIL_RATE=$(jq '.metrics.http_req_failed.values.rate' performance-report/summary.json || echo "0")
+          
+            {
+              echo "### 🚀 k6 API Performance Summary"
+              echo "- **Total Requests:** $REQ_COUNT"
+              echo "- **Avg Latency:** ${AVG_LATENCY} ms"
+              echo "- **p(95) Latency:** ${P95_LATENCY} ms"
+              echo "- **Failure Rate:** $FAIL_RATE"
+              echo ""
+              echo "📊 Detailed HTML Report saved as artifact **k6-performance-report**"
+            } >> $GITHUB_STEP_SUMMARY
+          fi

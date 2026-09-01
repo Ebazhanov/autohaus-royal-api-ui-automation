@@ -1,10 +1,10 @@
-name: CI
+name: CI (Functional)
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -14,12 +14,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:latest
-    timeout-minutes: 20
+      image: mcr.microsoft.com/playwright:v1.48.0-noble
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache npm
+      - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
           path: |
@@ -32,8 +32,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Playwright tests (chromium only)
-        # Capture console output to parse numeric counters later
+      - name: Install ONLY Chromium
+        run: npx playwright install chromium
+
+      - name: Run E2E & UI Performance Tests
         run: |
           npx playwright test --project=chromium --reporter=dot --reporter=github --reporter=html 2>&1 | tee playwright-output.txt
 
@@ -44,30 +46,14 @@ jobs:
           name: playwright-report
           path: playwright-report
 
-      - name: Upload raw test-results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test-results
-
-      - name: Post numeric summary
+      - name: Post summary
         if: always()
         run: |
           OUT=playwright-output.txt
           PASSED=$(grep -Eo '[0-9]+ passed' $OUT | grep -Eo '[0-9]+' || echo 0)
           FAILED=$(grep -Eo '[0-9]+ failed' $OUT | grep -Eo '[0-9]+' || echo 0)
           SKIPPED=$(grep -Eo '[0-9]+ skipped' $OUT | grep -Eo '[0-9]+' || echo 0)
-          echo "### Playwright results" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Passed: $PASSED" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Failed: $FAILED" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Skipped: $SKIPPED" >> $GITHUB_STEP_SUMMARY || true
-          echo "" 
-          echo "Passed: $PASSED Failed: $FAILED Skipped: $SKIPPED"
-
-      - name: Post job summary link
-        if: always()
-        run: |
-          echo "### Playwright Report" >> $GITHUB_STEP_SUMMARY || true
-          echo "- HTML report artifact: playwright-report" >> $GITHUB_STEP_SUMMARY || true
-          echo "- Raw test-results artifact: test-results" >> $GITHUB_STEP_SUMMARY || true
+          {
+            echo "### 🎭 Functional Tests"
+            echo "- Passed: $PASSED | Failed: $FAILED | Skipped: $SKIPPED"
+          } >> $GITHUB_STEP_SUMMARY

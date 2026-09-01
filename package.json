@@ -8,18 +8,20 @@
     "node": ">=18"
   },
   "scripts": {
-    "prepare": "npx playwright install --with-deps",
+    "prepare": "npx playwright install chromium",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:api": "playwright test tests/api --project=chromium",
     "test:e2e": "playwright test tests/e2e --project=chromium",
+    "test:perf:ui": "playwright test tests/performance/ui --project=chromium",
+    "test:perf:api": "mkdir -p performance-report && k6 run tests/performance/api/vehicle-k6-load.js",
     "test:ci": "playwright test --reporter=list --workers=1",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
-    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.{ts,js}\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.{ts,js}\"",
     "check": "npm run typecheck && npm run lint && npm run format:check",
     "ci": "npm run prepare && npm run test:ci"
   },
@@ -31,7 +33,9 @@
     "playwright",
     "testing",
     "automation",
-    "typescript"
+    "typescript",
+    "k6",
+    "performance"
   ],
   "author": "",
   "license": "MIT",
@@ -41,6 +45,7 @@
   "homepage": "https://github.com/Ebazhanov/autohaus-royal-api-ui-automation#readme",
   "devDependencies": {
     "@playwright/test": "^1.50.0",
+    "@types/k6": "^2.2.0",
     "@types/node": "^22.10.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
