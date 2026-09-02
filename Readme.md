@@ -48,31 +48,31 @@ npm run prepare
 
 ----
 
-# Bug Reports Summary
+## Bug Reports Summary
 
-## Functional Testing
-* **`[Func] [Sev: High | P: High] Contact form lacks validation error triggers for invalid inputs`**
-* **`[Func] [Sev: Med | P: Med] Vehicle search filter lacks a 'Reset Filters' control button`**
-* **`[Func] [Sev: Med | P: Med] Empty filter results lack 'No cars found' message`**
-* **`[Func] [Sev: Med | P: Med] Catalog filter update lacks asynchronous loading spinner feedback`**
+### Functional Testing
+* [Func] [Sev: High | P: High] Contact form lacks validation error triggers for invalid inputs
+* [Func] [Sev: Med | P: Med] Vehicle search filter lacks a 'Reset Filters' control button
+* [Func] [Sev: Med | P: Med] Empty filter results lack 'No cars found' message
+* [Func] [Sev: Med | P: Med] Catalog filter update lacks asynchronous loading spinner feedback
 
-## UX / Usability Testing
-* **`[UX] [Sev: Low | P: Low] Weak visual contrast for the active navigation menu item`**
-* **`[UX] [Sev: Med | P: Med] Unclickable social media and external partner icons in footer`**
-* **`[UX] [Sev: Med | P: Med] Messy specifications layout on vehicle detail page`**
-* **`[UX] [Sev: Med | P: Med] Filter interaction triggers layout flash without a loading indicator`**
+### UX / Usability Testing
+* [UX] [Sev: Low | P: Low] Weak visual contrast for the active navigation menu item
+* [UX] [Sev: Med | P: Med] Unclickable social media and external partner icons in footer
+* [UX] [Sev: Med | P: Med] Messy specifications layout on vehicle detail page
+* [UX] [Sev: Med | P: Med] Filter interaction triggers layout flash without a loading indicator
 
-## Compatibility Testing (UI / Layout)
-* **`[UI] [Sev: Med | P: Med] Vehicle model titles cropped in catalog card headers`**
+### Compatibility Testing (UI / Layout)
+* [UI] [Sev: Med | P: Med] Vehicle model titles cropped in catalog card headers
 
-## Performance & Speed Testing
-* **`[Perf] [Sev: Low | P: Low] Duplicate 'group.php' POST requests fired on initial page load`**
-* **`[Perf] [Sev: Med | P: Med] Long network delay during initial Google Maps API requests`**
+### Performance & Speed Testing
+* [Perf] [Sev: Low | P: Low] Duplicate 'group.php' POST requests fired on initial page load
+* [Perf] [Sev: Med | P: Med] Long network delay during initial Google Maps API requests
 
-## Security Testing
-* **`[Security] [Sev: Med | P: High] Empty 'x-goog-api-key' header sent in Google Places API request`**
+### Security Testing
+* [Security] [Sev: Med | P: High] Empty 'x-goog-api-key' header sent in Google Places API request
 
-## Content & SEO Testing
-* **`[SEO] [Sev: Med | P: Low] Missing Open Graph ('og:*') tags prevent social link previews`**
-* **`[SEO] [Sev: Low | P: Low] Empty 'description' meta tag content attribute in HTML head`**
-* **`[Content] [Sev: Low | P: Low] Attribute lists display raw concatenated strings without space delimiters`**
+### Content & SEO Testing
+* [SEO] [Sev: Med | P: Low] Missing Open Graph ('og:*') tags prevent social link previews
+* [SEO] [Sev: Low | P: Low] Empty 'description' meta tag content attribute in HTML head
+* [Content] [Sev: Low | P: Low] Attribute lists display raw concatenated strings without space delimiters
