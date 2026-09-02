@@ -71,6 +71,7 @@ npm run prepare
 
 ### Security Testing
 * [Security] [Sev: Med | P: High] Empty 'x-goog-api-key' header sent in Google Places API request
+* [Security] [Sev: High | P: High] Unrestricted API Data Exposure: Backend endpoint dumps raw database dictionary (60k+ JSON lines) on initial load
 
 ### Content & SEO Testing
 * [SEO] [Sev: Med | P: Low] Missing Open Graph ('og:*') tags prevent social link previews
