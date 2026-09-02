@@ -2,6 +2,72 @@
   "/data/group.php": [
     [
       {
+        "Key": "PETROL",
+        "Value": "Benzin"
+      },
+      {
+        "Key": "DIESEL",
+        "Value": "Diesel"
+      },
+      {
+        "Key": "ELECTRICITY",
+        "Value": "Elektro"
+      },
+      {
+        "Key": "CNG",
+        "Value": "Erdgas (CNG)"
+      },
+      {
+        "Key": "HYBRID",
+        "Value": "Hybrid (Benzin/Elektro)"
+      },
+      {
+        "Key": "HYBRID_DIESEL",
+        "Value": "Hybrid (Diesel / Elektro)"
+      }
+    ],
+    [
+      {
+        "Key": "AUTOMATIC_GEAR",
+        "Value": "AUTOMATIC_GEAR"
+      },
+      {
+        "Key": "MANUAL_GEAR",
+        "Value": "MANUAL_GEAR"
+      }
+    ],
+    [
+      {
+        "Key": "Cabrio",
+        "Value": "Cabrio"
+      },
+      {
+        "Key": "EstateCar",
+        "Value": "EstateCar"
+      },
+      {
+        "Key": "Limousine",
+        "Value": "Limousine"
+      },
+      {
+        "Key": "OffRoad",
+        "Value": "OffRoad"
+      },
+      {
+        "Key": "SmallCar",
+        "Value": "SmallCar"
+      },
+      {
+        "Key": "SportsCar",
+        "Value": "SportsCar"
+      },
+      {
+        "Key": "Van",
+        "Value": "Van"
+      }
+    ],
+    [
+      {
         "Key": "AUDI",
         "Value": "AUDI"
       },
@@ -124,72 +190,6 @@
       {
         "Key": "VW",
         "Value": "VW"
-      }
-    ],
-    [
-      {
-        "Key": "Cabrio",
-        "Value": "Cabrio"
-      },
-      {
-        "Key": "EstateCar",
-        "Value": "EstateCar"
-      },
-      {
-        "Key": "Limousine",
-        "Value": "Limousine"
-      },
-      {
-        "Key": "OffRoad",
-        "Value": "OffRoad"
-      },
-      {
-        "Key": "SmallCar",
-        "Value": "SmallCar"
-      },
-      {
-        "Key": "SportsCar",
-        "Value": "SportsCar"
-      },
-      {
-        "Key": "Van",
-        "Value": "Van"
-      }
-    ],
-    [
-      {
-        "Key": "PETROL",
-        "Value": "Benzin"
-      },
-      {
-        "Key": "DIESEL",
-        "Value": "Diesel"
-      },
-      {
-        "Key": "ELECTRICITY",
-        "Value": "Elektro"
-      },
-      {
-        "Key": "CNG",
-        "Value": "Erdgas (CNG)"
-      },
-      {
-        "Key": "HYBRID",
-        "Value": "Hybrid (Benzin/Elektro)"
-      },
-      {
-        "Key": "HYBRID_DIESEL",
-        "Value": "Hybrid (Diesel / Elektro)"
-      }
-    ],
-    [
-      {
-        "Key": "AUTOMATIC_GEAR",
-        "Value": "AUTOMATIC_GEAR"
-      },
-      {
-        "Key": "MANUAL_GEAR",
-        "Value": "MANUAL_GEAR"
       }
     ],
     [
