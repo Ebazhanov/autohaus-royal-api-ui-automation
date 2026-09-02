@@ -14,15 +14,17 @@
     "test:ui": "playwright test --ui",
     "test:api": "playwright test tests/api --project=chromium",
     "test:e2e": "playwright test tests/e2e --project=chromium",
+    "test:security": "playwright test tests/security --project=chromium",
     "test:perf:ui": "playwright test tests/performance/ui --project=chromium",
     "test:perf:api": "mkdir -p performance-report && k6 run tests/performance/api/vehicle-k6-load.js",
     "test:ci": "playwright test --reporter=list --workers=1",
+    "audit:deps": "npm audit --audit-level=high",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.{ts,js}\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.{ts,js}\"",
-    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run audit:deps",
     "ci": "npm run prepare && npm run test:ci"
   },
   "repository": {
@@ -35,7 +37,8 @@
     "automation",
     "typescript",
     "k6",
-    "performance"
+    "performance",
+    "security"
   ],
   "author": "",
   "license": "MIT",

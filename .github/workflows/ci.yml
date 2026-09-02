@@ -32,7 +32,7 @@ jobs:
         run: npx playwright install chromium
 
       - name: Run E2E & UI Performance Tests
-        run: npx playwright test --project=chromium
+        run: npx playwright test tests/api tests/e2e --project=chromium
         env:
           PLAYWRIGHT_JSON_OUTPUT_NAME: results.json
 
