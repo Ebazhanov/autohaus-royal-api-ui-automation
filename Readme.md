@@ -75,7 +75,7 @@ npm run prepare
 > ⚠️ **SECURITY WARNING**  
 * [Security] [Sev: High | P: High] Unrestricted API Data Exposure**  
 > The backend endpoint dumps a raw database dictionary containing over 60,000 JSON lines on initial page load.  
-> 🔗 **Relevant Spec:** [`tests/autohaus.spec.ts`](./tests/api/catalog-dumper.spec.ts)
+> 🔗 **Relevant Spec:** [`tests/catalog-dumper.spec.ts`](./tests/security/catalog-dumper.spec.ts)
 
 ### Content & SEO Testing
 * [SEO] [Sev: Med | P: Low] Missing Open Graph ('og:*') tags prevent social link previews
