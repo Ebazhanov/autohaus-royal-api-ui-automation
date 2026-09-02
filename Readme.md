@@ -4,7 +4,7 @@ A hybrid test suite combining **Playwright (TypeScript)** E2E/API automation wit
 
 [![CI (Functional)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/ci.yml/badge.svg)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/ci.yml)
 [![Performance & Load Tests](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/performance.yml/badge.svg)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/performance.yml)
-
+[![Security & Audit](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/security.yml/badge.svg)](https://github.com/Ebazhanov/autohaus-royal-api-ui-automation/actions/workflows/security.yml)
 ---
 
 ## 🎯 Test Scenarios
@@ -13,14 +13,15 @@ A hybrid test suite combining **Playwright (TypeScript)** E2E/API automation wit
   - Validates that vehicle attributes (ID, Manufacturer, Price, Km, Fuel) match between live backend API responses and rendered UI elements.
   - Priority checks: Manufacturer, Price, Mileage (Km), Fuel type, and API/UI contract validation.
 - [x] **UI Performance Benchmarks (Core Web Vitals)**
-  - Measures Navigation Timing and Core Web Vitals (DOMContentLoaded, Page Load Time, FCP) directly within Playwright runs.
+  - Measures Navigation Timing and Core Web Vitals (DOMContentLoaded, Page Load Time, FCP) directly within Playwright runs against Google Web Vitals SLA standards.
 - [x] **API Load & Performance Testing (k6)**
-  - Executes load testing scenarios, SLA threshold verifications (`p(95) < 1000ms`, `failure < 5%`), and exports dual HTML/JSON reports using **k6**.
+  - Executes load testing scenarios, SLA threshold verifications (`p(95) < 1000ms`, `failure < 5%`), and exports structured metrics using **k6**.
+- [x] **Security Audit & API Data Leak Detection**
+  - Audits backend response payloads for unrestricted API exposure of raw database dictionary objects (`/data/group.php`) and dumps catalog metadata artifacts.
 - [ ] **Inquiry Form Submission**
   - Submits the vehicle inquiry form via UI and asserts outgoing network payload correctness and validation handling.
 - [ ] **State Mocks & Edge Cases**
   - Mocks dynamic pricing and availability statuses via network route overrides to exercise edge cases and error handling.
-
 ---
 
 ## 🛠️ Prerequisites & Setup
