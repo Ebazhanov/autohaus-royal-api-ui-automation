@@ -17,6 +17,7 @@ test.describe('Security Audit - Unrestricted API Data Exposure', () => {
       }
     });
 
+    // Navigate to catalog
     await page.goto('https://www.autohaus-royal.de/fahrzeuge', {
       waitUntil: 'domcontentloaded',
     });
@@ -26,6 +27,16 @@ test.describe('Security Audit - Unrestricted API Data Exposure', () => {
     if (await cookieBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
       await cookieBtn.click();
     }
+
+    // Wait for the specific leaked endpoint response or network idle to capture XHR/fetch calls
+    await page
+      .waitForResponse(
+        resp =>
+          (resp.url().includes('/data/group.php') || resp.url().includes('/data/filter.php')) &&
+          resp.status() === 200,
+        { timeout: 7000 }
+      )
+      .catch(() => null);
 
     /**
      * SECURITY ASSERTION:
